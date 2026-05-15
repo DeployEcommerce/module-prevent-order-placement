@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+         colors="true"
+         bootstrap="./bootstrap.php">
+    <testsuites>
+        <testsuite name="DeployEcommerce_PreventOrderPlacement_Unit">
+            <directory suffix="Test.php">.</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <ini name="memory_limit" value="-1"/>
+    </php>
+</phpunit>

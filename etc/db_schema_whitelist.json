@@ -1,0 +1,30 @@
+{
+    "deployecommerce_preventorderplacement_blocked_attempt": {
+        "column": {
+            "entity_id": true,
+            "created_at": true,
+            "remote_ip": true,
+            "quote_id": true,
+            "reserved_order_id": true,
+            "payment_method": true,
+            "customer_id": true,
+            "customer_email": true,
+            "input_data": true,
+            "addresses_json": true,
+            "matched_rule": true,
+            "matched_scope": true,
+            "failure_reason": true
+        },
+        "index": {
+            "DE_PREVENT_ORDER_PLACEMENT_ATTEMPT_CREATED_AT": true,
+            "DE_PREVENT_ORDER_PLACEMENT_ATTEMPT_REMOTE_IP": true,
+            "DE_PREVENT_ORDER_PLACEMENT_ATTEMPT_QUOTE_ID": true,
+            "DE_PREVENT_ORDER_PLACEMENT_ATTEMPT_RESERVED_ORDER_ID": true,
+            "DE_PREVENT_ORDER_PLACEMENT_ATTEMPT_CUSTOMER_EMAIL": true,
+            "DE_PREVENT_ORDER_PLACEMENT_ATTEMPT_PAYMENT_METHOD": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}
