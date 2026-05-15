@@ -110,7 +110,11 @@ class BlocklistSerialized extends ConfigValue
                 continue;
             }
 
-            $clean[] = [
+            // AbstractFieldArray uses the array key as the rendered <tr id="…">.
+            // A numeric key produces an invalid CSS selector like `tr#0`, which
+            // breaks Magento's own row-template JS (querySelectorAll throws).
+            // Generate a deterministic non-numeric key per row instead.
+            $clean['_' . md5(uniqid('', true) . random_int(0, PHP_INT_MAX))] = [
                 'street' => $row['street'],
                 'city' => $row['city'],
                 'county' => $row['county'],
@@ -137,6 +141,22 @@ class BlocklistSerialized extends ConfigValue
             } catch (\InvalidArgumentException $e) {
                 $decoded = [];
             }
+
+            // Re-key any numerically-indexed rows from older saves. The rendered
+            // field-array uses the array key as the row's HTML id; numeric keys
+            // would produce invalid CSS selectors (`tr#0`) that crash Magento's
+            // row-template JS.
+            if (is_array($decoded)) {
+                $rekeyed = [];
+                foreach ($decoded as $key => $row) {
+                    if (is_int($key) || (is_string($key) && ctype_digit($key))) {
+                        $key = '_' . md5(uniqid('', true) . random_int(0, PHP_INT_MAX));
+                    }
+                    $rekeyed[$key] = $row;
+                }
+                $decoded = $rekeyed;
+            }
+
             $this->setValue(is_array($decoded) ? $decoded : []);
         }
     }

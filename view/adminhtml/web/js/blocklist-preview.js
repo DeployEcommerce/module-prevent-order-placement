@@ -200,10 +200,17 @@ define([
     }
 
     function attach(marker) {
-        var $table = $('#' + marker.elementId).closest('td').find('table.admin__control-table').first();
+        var $cell = $('#' + marker.elementId).closest('td');
+        var $table = $cell.find('table.admin__control-table').first();
         if (!$table.length) {
             return;
         }
+
+        // Tag the row/cell/table so CSS can target them without depending on
+        // Magento's auto-generated row id format (which differs across versions).
+        $table.addClass('dep-bp-table');
+        $cell.addClass('dep-bp-cell');
+        $cell.closest('tr').addClass('dep-bp-row');
 
         // Text inputs: fire on blur only (avoid duplicate firing from change+blur).
         $table.on('blur', 'input.input-text', function (event) {
