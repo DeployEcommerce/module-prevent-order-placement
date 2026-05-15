@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="deployecommerce_preventorderplacement_blocked_attempt" resource="default" engine="innodb" comment="Audit log of order placements blocked by DeployEcommerce_PreventOrderPlacement">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Date and time of blocked attempt"/>
+        <column xsi:type="varchar" name="remote_ip" length="45" nullable="true" comment="Remote IP address of the user"/>
+        <column xsi:type="int" name="quote_id" unsigned="true" nullable="true" comment="Quote ID"/>
+        <column xsi:type="varchar" name="reserved_order_id" length="32" nullable="true" comment="Reserved Magento increment ID (null if not reserved at time of block)"/>
+        <column xsi:type="varchar" name="payment_method" length="64" nullable="true" comment="Payment method code used at the time of the attempt"/>
+        <column xsi:type="int" name="customer_id" unsigned="true" nullable="true" comment="Customer ID (null for guest)"/>
+        <column xsi:type="varchar" name="customer_email" length="255" nullable="true" comment="Customer or billing email"/>
+        <column xsi:type="text" name="input_data" nullable="true" comment="JSON of lowercased address values compared against rules"/>
+        <column xsi:type="text" name="addresses_json" nullable="true" comment="JSON snapshot of full billing and shipping addresses"/>
+        <column xsi:type="text" name="matched_rule" nullable="true" comment="JSON of the rule row that matched"/>
+        <column xsi:type="varchar" name="matched_scope" length="16" nullable="true" comment="Which address the match hit (billing|shipping)"/>
+        <column xsi:type="text" name="failure_reason" nullable="true" comment="Human-readable reason describing which fields matched"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="DE_PREVENT_ORDER_PLACEMENT_ATTEMPT_CREATED_AT" indexType="btree">
+            <column name="created_at"/>
+        </index>
+        <index referenceId="DE_PREVENT_ORDER_PLACEMENT_ATTEMPT_REMOTE_IP" indexType="btree">
+            <column name="remote_ip"/>
+        </index>
+        <index referenceId="DE_PREVENT_ORDER_PLACEMENT_ATTEMPT_QUOTE_ID" indexType="btree">
+            <column name="quote_id"/>
+        </index>
+        <index referenceId="DE_PREVENT_ORDER_PLACEMENT_ATTEMPT_RESERVED_ORDER_ID" indexType="btree">
+            <column name="reserved_order_id"/>
+        </index>
+        <index referenceId="DE_PREVENT_ORDER_PLACEMENT_ATTEMPT_CUSTOMER_EMAIL" indexType="btree">
+            <column name="customer_email"/>
+        </index>
+        <index referenceId="DE_PREVENT_ORDER_PLACEMENT_ATTEMPT_PAYMENT_METHOD" indexType="btree">
+            <column name="payment_method"/>
+        </index>
+    </table>
+</schema>

@@ -1,0 +1,32 @@
+{
+    "name": "deployecommerce/module-prevent-order-placement",
+    "description": "Block Magento 2 order placement when billing or shipping address fields match an admin-configured blocklist. Includes an admin match-count preview and a per-block audit log.",
+    "type": "magento2-module",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "DeployEcommerce",
+            "homepage": "https://deploy.co.uk"
+        }
+    ],
+    "require": {
+        "php": "~8.1.0||~8.2.0||~8.3.0",
+        "magento/framework": "*",
+        "magento/module-backend": "*",
+        "magento/module-checkout": "*",
+        "magento/module-config": "*",
+        "magento/module-quote": "*",
+        "magento/module-store": "*"
+    },
+    "require-dev": {
+        "pestphp/pest": "^1.23"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "DeployEcommerce\\PreventOrderPlacement\\": ""
+        }
+    }
+}

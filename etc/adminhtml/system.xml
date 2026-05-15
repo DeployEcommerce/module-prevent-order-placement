@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="deploy_ecommerce" translate="label" sortOrder="999">
+            <label>DeployEcommerce</label>
+        </tab>
+        <section id="deployecommerce_preventorderplacement"
+                 translate="label"
+                 type="text"
+                 sortOrder="10"
+                 showInDefault="1"
+                 showInWebsite="1"
+                 showInStore="1">
+            <class>separator-top</class>
+            <label>Prevent Order Placement</label>
+            <tab>deploy_ecommerce</tab>
+            <resource>DeployEcommerce_PreventOrderPlacement::config</resource>
+            <group id="general"
+                   translate="label"
+                   type="text"
+                   sortOrder="5"
+                   showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="1">
+                <label>General</label>
+                <field id="enabled"
+                       translate="label comment"
+                       type="select"
+                       sortOrder="10"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[When set to <strong>No</strong>, the order placement check is skipped entirely. Use this to disable the feature if it is causing problems.]]></comment>
+                </field>
+            </group>
+            <group id="blocklist"
+                   translate="label comment"
+                   type="text"
+                   sortOrder="10"
+                   showInDefault="1"
+                   showInWebsite="0"
+                   showInStore="0">
+                <label>Address Blocklist</label>
+                <comment><![CDATA[Add rules to block order placement when the customer's billing and/or shipping address matches the configured strings. Each row is a single check. Populate one or more fields — within a row all populated fields must match (AND). Substring (contains) match, case-insensitive. Values are lowercased on save.]]></comment>
+                <field id="rules"
+                       translate="label comment"
+                       sortOrder="10"
+                       showInDefault="1"
+                       showInWebsite="0"
+                       showInStore="0">
+                    <label>Blocklist Rules</label>
+                    <frontend_model>DeployEcommerce\PreventOrderPlacement\Block\Adminhtml\Form\Field\BlocklistRows</frontend_model>
+                    <backend_model>DeployEcommerce\PreventOrderPlacement\Model\Config\Backend\BlocklistSerialized</backend_model>
+                    <comment><![CDATA[Use <em>Add Rule</em> to create blocklist entries. Address scope determines which address(es) on the order are checked.]]></comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
