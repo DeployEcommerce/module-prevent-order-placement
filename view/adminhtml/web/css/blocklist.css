@@ -2,39 +2,47 @@
  * Copyright © DeployEcommerce. All rights reserved.
  *
  * Widens the blocklist field-array row on the Prevent Order Placement
- * admin config screen. By default Magento constrains the value column
- * so a 6-column dynamic table renders cramped; this rule removes that
- * constraint for our row only.
+ * admin config screen. By default Magento constrains the System
+ * Configuration form's value column, so a 6-input dynamic-rows table
+ * renders cramped. The companion JS module
+ * (DeployEcommerce_PreventOrderPlacement/js/blocklist-preview) tags the
+ * field row, value cell, and inner table with the classes targeted
+ * below; tagging via JS rather than the row id avoids breakage if
+ * Magento changes its admin id format.
+ *
+ * !important is used throughout because Magento's admin theme ships
+ * specific width rules for .admin__control-table and the parent value
+ * cell that win on specificity alone.
  */
-#row_deployecommerce_preventorderplacement_blocklist_rules .value,
-#row_deployecommerce_preventorderplacement_blocklist_rules td.value {
-    width: auto;
-    max-width: none;
+.dep-bp-row > td.dep-bp-cell,
+.dep-bp-row > td.value.dep-bp-cell {
+    width: auto !important;
+    max-width: none !important;
 }
 
-#row_deployecommerce_preventorderplacement_blocklist_rules table.admin__control-table {
-    width: 100%;
-    table-layout: auto;
+table.dep-bp-table {
+    width: 100% !important;
+    table-layout: auto !important;
 }
 
-#row_deployecommerce_preventorderplacement_blocklist_rules table.admin__control-table input.input-text,
-#row_deployecommerce_preventorderplacement_blocklist_rules table.admin__control-table select {
-    width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
+table.dep-bp-table input.input-text,
+table.dep-bp-table select {
+    width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
 }
 
-#row_deployecommerce_preventorderplacement_blocklist_rules table.admin__control-table th,
-#row_deployecommerce_preventorderplacement_blocklist_rules table.admin__control-table td {
+table.dep-bp-table th,
+table.dep-bp-table td {
     padding: 6px 8px;
     vertical-align: middle;
 }
 
-#row_deployecommerce_preventorderplacement_blocklist_rules .dep-bp-note-row td {
+table.dep-bp-table .dep-bp-note-row > td {
     background: #fafafa;
     border-top: 0;
 }
 
-#row_deployecommerce_preventorderplacement_blocklist_rules .dep-bp-badge {
+table.dep-bp-table .dep-bp-badge {
     white-space: nowrap;
 }
