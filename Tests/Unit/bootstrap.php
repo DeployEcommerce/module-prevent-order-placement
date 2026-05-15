@@ -5,12 +5,33 @@
  * PHPUnit/Pest bootstrap for DeployEcommerce_PreventOrderPlacement unit tests.
  *
  * Pulls in Magento's composer autoloader so framework classes resolve, then adds
- * a PSR-4 autoloader for the module's own classes (which live in app/code/ and
- * aren't reachable through composer's autoload without Magento's full bootstrap).
+ * a PSR-4 autoloader for the module's own classes. Works whether the module is
+ * installed under app/code/ or composer-installed under vendor/ — walks upward
+ * looking for the nearest vendor/autoload.php instead of assuming a fixed depth.
  */
 declare(strict_types=1);
 
-require_once dirname(__DIR__, 6) . '/vendor/autoload.php';
+$dir = __DIR__;
+$autoload = null;
+for ($i = 0; $i < 10; $i++) {
+    $candidate = $dir . '/vendor/autoload.php';
+    if (is_file($candidate)) {
+        $autoload = $candidate;
+        break;
+    }
+    $parent = dirname($dir);
+    if ($parent === $dir) {
+        break;
+    }
+    $dir = $parent;
+}
+
+if ($autoload === null) {
+    fwrite(STDERR, "Could not locate vendor/autoload.php walking up from " . __DIR__ . "\n");
+    exit(1);
+}
+
+require_once $autoload;
 
 $moduleRoot = dirname(__DIR__, 2);
 $moduleNamespace = 'DeployEcommerce\\PreventOrderPlacement\\';
