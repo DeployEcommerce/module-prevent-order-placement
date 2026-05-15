@@ -1,0 +1,40 @@
+/**
+ * Copyright © DeployEcommerce. All rights reserved.
+ *
+ * Widens the blocklist field-array row on the Prevent Order Placement
+ * admin config screen. By default Magento constrains the value column
+ * so a 6-column dynamic table renders cramped; this rule removes that
+ * constraint for our row only.
+ */
+#row_deployecommerce_preventorderplacement_blocklist_rules .value,
+#row_deployecommerce_preventorderplacement_blocklist_rules td.value {
+    width: auto;
+    max-width: none;
+}
+
+#row_deployecommerce_preventorderplacement_blocklist_rules table.admin__control-table {
+    width: 100%;
+    table-layout: auto;
+}
+
+#row_deployecommerce_preventorderplacement_blocklist_rules table.admin__control-table input.input-text,
+#row_deployecommerce_preventorderplacement_blocklist_rules table.admin__control-table select {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+#row_deployecommerce_preventorderplacement_blocklist_rules table.admin__control-table th,
+#row_deployecommerce_preventorderplacement_blocklist_rules table.admin__control-table td {
+    padding: 6px 8px;
+    vertical-align: middle;
+}
+
+#row_deployecommerce_preventorderplacement_blocklist_rules .dep-bp-note-row td {
+    background: #fafafa;
+    border-top: 0;
+}
+
+#row_deployecommerce_preventorderplacement_blocklist_rules .dep-bp-badge {
+    white-space: nowrap;
+}
