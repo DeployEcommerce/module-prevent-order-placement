@@ -14,10 +14,21 @@
  * specific width rules for .admin__control-table and the parent value
  * cell that win on specificity alone.
  */
+/*
+ * Hide the label / scope-label / use-default cells on our row so the
+ * dynamic-rows table can claim the full row width. The field's
+ * `<label>` is shown by the AbstractFieldArray as a heading above the
+ * table already, so dropping the side label costs no information.
+ */
+.dep-bp-row > td:not(.dep-bp-cell) {
+    display: none !important;
+}
+
 .dep-bp-row > td.dep-bp-cell,
 .dep-bp-row > td.value.dep-bp-cell {
-    width: auto !important;
+    width: 100% !important;
     max-width: none !important;
+    padding-left: 0 !important;
 }
 
 table.dep-bp-table {
